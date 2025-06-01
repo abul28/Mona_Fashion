@@ -6,7 +6,7 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename="/Mona_Fashions">
+    <BrowserRouter basename="/Mona_Fashion">
     <App />
     </BrowserRouter>
   </StrictMode>,

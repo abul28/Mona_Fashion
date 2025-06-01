@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/Mona_Fashions/', // 👈 This must match your GitHub repo name
+  base: '/Mona_Fashion/', // 👈 This must match your GitHub repo name
   plugins: [react()],
-  base: '/Mona_Fashions/',
+  base: '/Mona_Fashion/',
 });
