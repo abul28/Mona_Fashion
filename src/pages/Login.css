@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Poetsen+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
+.admin-login-container {
+    position: relative;
+    min-height: 100vh;
+    /* background: linear-gradient(90deg, #994ECC, #3E187A);  */
+    background-color: black;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .loginlabel{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.admin-login-box {
+  z-index: 1;
+  position: fixed; /* Fixed to viewport */
+  bottom: 0;        /* Stick to bottom */
+  left: 50%;        /* Center horizontally */
+  transform: translateX(-50%);
+  background: #F9F9F9;
+  padding: 1.5rem;
+  border-radius: 20px 20px 0 0; /* Rounded top only */
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 100%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+ 
+  .input-group {
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  .login-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* push toward card */
+    height: 40vh; /* occupies top 40% of screen */
+    position: relative;
+    z-index: 1;
+  }
+  
+  .login-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .guest-login {
+    background: transparent;
+    color: #994ECC;
+    border: none;
+    font-size: 14px;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .guest-login:hover {
+    color: #3E187A;
+  }
+  
+/* Logo Styling */
+.login-logo {
+  width: 100px; /* Adjust size */
+  height: auto;
+  margin-bottom: 5px;
+}
+
+/* Boutique Name Styling */
+.boutique-name {
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'Lobster Two', cursive;
+    background-image: url('https://media.istockphoto.com/id/908605620/photo/sparkle-gold-glitter-background.jpg?s=170667a&w=0&k=20&c=42fL5hCeCifOg9aGJt7Kw4Bh3jRJFCLZdwfhhvo1DuE=');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h4 {
+  margin-bottom: 1rem;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.admin-login-box input {
+  padding: 6px;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.admin-login-box input:focus {
+  outline: none;
+  background: #e8e8e8;
+}
+
+.admin-login-box button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 12px;
+}
+
+.admin-login-box button[type="submit"],
+.admin-login-box button:last-child {
+  /* background: #7A1CAC; */
+  background: black;
+  color: white;
+  border: none; /* Remove border if not needed */
+}
+
+/* Remove hover effect completely */
+.admin-login-box button[type="submit"]:hover,
+.admin-login-box button:last-child:hover {
+  /* background: #7A1CAC; */
+  background: black;
+  color: white;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .admin-login-container {
+    position: relative;
+    min-height: 100vh;
+    /* background: linear-gradient(90deg, #994ECC, #3E187A);  */
+    background-color: black;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+.loginlabel{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+  .admin-login-box {
+    z-index: 1;
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: #F9F9F9;
+    padding: 2.5rem;
+    border-radius: 100px 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    min-height: 45vh;
+    text-align: center;
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 100%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+ 
+  .input-group {
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  .login-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* push toward card */
+    height: 40vh; /* occupies top 40% of screen */
+    position: relative;
+    z-index: 1;
+  }
+  
+  .login-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .guest-login {
+    background: transparent;
+    color: #994ECC;
+    border: none;
+    font-size: 14px;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .guest-login:hover {
+    color: #3E187A;
+  }
+  
+/* Logo Styling */
+.login-logo {
+  width: 100px; /* Adjust size */
+  height: auto;
+  margin-bottom: 5px;
+}
+
+/* Boutique Name Styling */
+.boutique-name {
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'Lobster Two', cursive;
+    background-image: url('https://media.istockphoto.com/id/908605620/photo/sparkle-gold-glitter-background.jpg?s=170667a&w=0&k=20&c=42fL5hCeCifOg9aGJt7Kw4Bh3jRJFCLZdwfhhvo1DuE=');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h4 {
+  margin-bottom: 1rem;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.admin-login-box input {
+  width: 100%;
+  padding: 8px;
+  margin: 7px 0;
+  border: none;
+  border-radius: 8px;
+  /* background: #eeeeee; */
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.admin-login-box input:focus {
+  outline: none;
+  background: #e8e8e8;
+}
+
+.admin-login-box button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 12px;
+}
+
+.admin-login-box button[type="submit"],
+.admin-login-box button:last-child {
+  /* background: #7A1CAC; */
+  background: black;
+  color: white;
+  border: none; /* Remove border if not needed */
+}
+
+/* Remove hover effect completely */
+.admin-login-box button[type="submit"]:hover,
+.admin-login-box button:last-child:hover {
+  /* background: #7A1CAC; */
+  background: black;
+  color: white;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+}
+@media (max-height: 500px) {
+  .admin-login-box {
+    padding: 1rem;
+    max-width: 90%;
+  }
+}
+

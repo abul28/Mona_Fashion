@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mona Fashions</string>
+    <string name="title_activity_main">Mona Fashions</string>
+    <string name="package_name">com.boutique.monafashions</string>
+    <string name="custom_url_scheme">com.boutique.monafashions</string>
+</resources>

@@ -1,0 +1,433 @@
+/* Navbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poetsen+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  /* background-color: #F5EFFF; */
+  background-color: #f9f9f9;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Lobster Two', cursive;
+  background-image: url('https://media.istockphoto.com/id/908605620/photo/sparkle-gold-glitter-background.jpg?s=170667a&w=0&k=20&c=42fL5hCeCifOg9aGJt7Kw4Bh3jRJFCLZdwfhhvo1DuE=');
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional for depth */
+  position: relative;
+  display: inline-block;
+}
+
+@media (min-width: 1024px) {
+.navbar {
+    /* background: linear-gradient(90deg, #994ECC, #3E187A); */
+    background-color: black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }  
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.logo_icon{
+  width: 50px;
+  height: 50px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Lobster Two', cursive;
+    background-image: url('https://media.istockphoto.com/id/908605620/photo/sparkle-gold-glitter-background.jpg?s=170667a&w=0&k=20&c=42fL5hCeCifOg9aGJt7Kw4Bh3jRJFCLZdwfhhvo1DuE=');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional for depth */
+    position: relative;
+    display: inline-block;
+  }
+
+  .search-bar1 {
+    flex: 1;
+    display: flex;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 20px;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 2px 5px;
+  }
+  
+  .search-bar1 input {
+    width: 90%;
+    padding: 10px 15px;
+    margin: 0;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 25px;
+    background-color: transparent;
+  }
+  
+  /* Minimalist Button */
+  .search-bar1 button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    transition: transform 0.2s;
+  }
+  
+  .search-bar1 button:hover {
+    transform: scale(1.1);
+  }
+  
+  .search-bar1 button:focus,
+  .search-bar1 button:active {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  .account-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: white; /* ensures text/icon color is white */
+  } 
+
+  .back-button {
+    position: absolute;
+    left: 15px; /* distance from left edge */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    padding: 8px;
+  }
+} 
+  
+
+  /* .account-section span {
+    margin-left: 5px;
+    font-weight: bold;
+  } */
+/*
+.menu-items{
+  display: block;
+}
+
+.menu-toggle{
+  display: block;
+}
+.menu-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.menu-links a {
+  font-size: .9rem;
+  color: #ffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.menu-links a:hover {
+  color: #6366f1;
+  border-bottom: 2px solid #6366f1;
+}
+
+.actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #ffff;
+}
+
+.wishlist-icon {
+  color: #f44336;
+}
+
+/* Mobile Menu */
+/* .menu-toggle {
+  background: none;
+  border: none;
+  display: none;
+}
+
+.mobile-menu {
+  background-color: #f9f9f9;
+  padding: 1rem 0;
+  display: none;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.mobile-menu li {
+  margin: 0.8rem 0;
+}
+
+.mobile-menu a {
+  font-size: 1rem;
+  color: #333;
+  text-decoration: none;
+} */
+
+/* @media (max-width: 768px) {
+  .menu-links {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+
+ Mobile Menu Styles 
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: block;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mobile-menu ul li {
+  padding: 10px;
+}
+
+.mobile-menu ul li a {
+  text-decoration: none;
+  color: #333;
+} */
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+
+  .navbar {
+    /* background: linear-gradient(90deg, #994ECC, #3E187A); */
+    background-color: black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }  
+
+  .container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
+    padding: 10px;
+    padding-top: 15px;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .flex-layout {
+    display: flex;
+    align-items: center;
+    /*justify-content: space-between;  Ensures left-arrow and right-search bar */
+    width: 100%;
+    /* padding: 10px 15px; */
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    padding: 8px;
+    margin-right: 15px; /* Add spacing */
+  }
+  
+  .search-bar1 {
+    width: 85%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    /* padding: 6px; */
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .search-bar1 input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 25px;
+    background-color: transparent;
+  }
+  
+  .search-bar1 button {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+  }
+
+  .logo {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px; /* Space between logo and search bar */
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .logo_icon{
+    display: none;
+  }
+
+  .icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffff;
+    display: inline-block;
+    color: inherit;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: 7px;
+    font-size: 28px;
+    color: #fff;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+  }
+
+  .menu-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  .menu-items {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 15px 0;
+    border-radius: 0 0 12px 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+  }
+
+  .menu-items.show-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .menu-items li {
+    list-style: none;
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .menu-items li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    display: block;
+    padding: 10px 0;
+    transition: color 0.3s;
+  }
+
+  .menu-items li a:hover {
+    color: #ff4081;
+  }
+
+  .menu-items li a:active {
+    color: #e91e63;
+  }
+
+  .wishlist-icon{
+    display: none;
+  }
+
+  .account-section{
+    display: none;
+  }
+} 
+
+@media (max-width: 576px) {
+  .logo {
+    font-size: 1.3rem;
+  }
+}

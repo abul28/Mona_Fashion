@@ -1,0 +1,405 @@
+/* ClothesDisplay.css */
+.clothes-container {
+    padding: 2rem;
+    background-color: #f9f9f9; 
+    text-align: center;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .mobile-search-bar{
+    display: none;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .clothing-card {
+    min-height: 350px;
+    max-width: 360px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .clothing-card:hover {
+    transform: scale(1.05);
+    transition-duration: 0.3s;
+  }
+  
+  .card-image {
+    width: 100%;
+    max-width: 280px;
+    max-height: 240px;
+    object-fit: cover;
+    margin: auto;
+  }
+  
+  .flex{
+    display: flex;
+  }
+
+  .card-info {
+    margin-top: 10px;
+  }
+
+  .product-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .product-description {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .color-info {
+    font-size: 13px;
+    color: #777;
+    gap: 2px;
+  }
+  
+  .price-info {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 4px; /* reduce space above */
+  margin-bottom: 2px;
+  }
+  
+  .current-price {
+    font-size: 15px;
+    font-weight: bold;
+    color: #4caf50;
+  }
+  
+  .original-price {
+    font-size: 13px;
+    color: #999;
+    text-decoration: line-through;
+  }
+  
+  .discount {
+    font-size: 11px;
+    color: #e53935;
+  }
+
+  .search-filter-alert{
+    text-align: center;
+    justify-content: center;
+  }
+  
+  /* .deal-badge {
+    background-color: #ff9800;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  } */
+  
+  /* Scrollbar Styling */
+  .clothes-container::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .clothes-container::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 4px;
+  }
+  
+  /* .purchase-button {
+    background-color: #553C8B;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .purchase-button:hover {
+    background-color: linear-gradient(90deg, #994ECC, #3E187A);
+  } */
+
+  .button-group {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+  }
+  
+  .purchase-button, .wishlist-button {
+    background-color: #553C8B;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .purchase-button:hover {
+    background-color: #3E187A;
+  }
+  
+  .wishlist-button {
+    background-color: #E91E63;
+  }
+  
+  .wishlist-button:hover {
+    background-color: #D81B60;
+  }
+
+  .category-bar {
+    width: 100%;
+    height: 50px;
+    background-color: #F6F0F0;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 82px; /* Set this to the height of your navbar */
+    z-index: 1000;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  
+  .category-item {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 14px;
+    background-color: #F6F0F0;
+    cursor: pointer;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .category-item:hover {
+    border-color: #ccc;
+    background-color: black;
+    color: white;
+  }
+  
+  .free-delivery {
+    font-size: 13px;
+    color: #808080;
+    /* font-weight: bold; */
+    margin-top: 5px;
+    display: block;
+  }
+  
+  /* Responsive Styles */
+ @media (max-width: 768px) {
+
+  .mobile-search-bar{
+    flex: 1;
+    display: flex;
+    max-width: 500px;
+    margin: 0 20px;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 2px 5px;
+  }
+
+  .mobile-search-bar input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 25px;
+    background-color: transparent;
+  }
+  
+  .mobile-search-bar button {
+    background-color: #ffffff;
+    border: none;
+    color: gray;
+    padding: 4px 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .mobile-search-bar button:hover {
+    background-color: #0056b3;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two cards per row */
+    gap: 0.8rem;
+  }
+
+  .section-title{
+    font-size: 1.1rem;
+    margin-top: 15px;
+  }
+  .clothing-card {
+    background-color: white;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    min-height: 250px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .card-info {
+    /* margin-top: 10px; */
+    padding: 0;
+    margin: 2px;
+  }
+
+  .product-name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .price-info {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 10px;
+  }
+
+  .original-price{
+    font-size: 10px;
+  }
+
+  .product-description{
+    font-size: 10px;
+  }
+
+  .color-info{
+    font-size: 10px;
+  }
+
+  .purchase-button {
+    display:none;
+  }
+
+  .wishlist-button{
+    display: none;
+  }
+
+  .icon{
+    display:none;
+  }
+
+  .button-group
+  {
+    display: none;
+  }
+
+  .free-delivery {
+    font-size: 12px;
+    color: #808080;
+    /* font-weight: bold; */
+    margin-top: 5px;
+    display: block;
+  }
+  
+
+  /*background-color: #553C8B;
+    color: white;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+
+  .purchase-button:hover {
+    background-color: #3E187A;
+  } */
+
+  .category-bar{
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* Two cards per row */
+    gap: 0.4rem;
+  }
+
+  .search-bar{
+    display:block;
+  }
+
+  .clothes-container{
+    padding: .6rem;
+  }
+  .clothing-card {
+    min-height: 200px;
+    padding: 6px;
+  }
+
+  .card-image {
+    height: 180px;
+  }
+
+  .purchase-button {
+    font-size: 0.75rem;
+    padding: 5px;
+  }
+
+  .free-delivery {
+    font-size: 12px;
+    color: #808080;
+    /* font-weight: bold; */
+    margin-top: 5px;
+    display: block;
+  }
+  
+}
