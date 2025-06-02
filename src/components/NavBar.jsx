@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"; 
 import PersonIcon from "@mui/icons-material/Person";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import "./Navbar.css";
+import "./NavBar.css";
 import logo from "/mf_logo.png";
 
 const Navbar = ({ onSearch }) => {
