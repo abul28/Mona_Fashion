@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { firestore } from "../firebase/FirebaseService";
 import { collection, getDocs } from "firebase/firestore";
+import { Link } from "react-router-dom"; // Make sure this is imported at the top
 import "./Home.css";
 
 const Home = ({ searchQuery = "", onSearch }) => {
@@ -73,28 +74,31 @@ const Home = ({ searchQuery = "", onSearch }) => {
       <div className="clothes-container">
         <h2 className="section-title">Explore Our Collection</h2>
         <div className="card-grid">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((item) => (
-              <div key={item.id} className="clothing-card">
-                <div className="flex">
-                  <img src={item.imageUrl} alt={item.name} className="card-image" />
-                </div>
-                <div className="card-info">
-                  <h3 className="product-name">{item.name}</h3>
-                  <div className="price-info">
-                    <span className="current-price">₹{item.price}</span>
-                    <span className="original-price">₹{item.originalPrice}</span>
-                    <span className="discount">{item.discount}% off</span>
-                  </div>
-                  <span className="free-delivery">🚚 Free Delivery</span>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="search-filter-alert">
-              <p>No products found for "{selectedCategory}"</p>
-            </div>
-          )}
+        {filteredProducts.length > 0 ? (
+  filteredProducts.map((item) => (
+    <Link to={`/product/${item.id}`} key={item.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className="clothing-card">
+        <div className="flex">
+          <img src={item.imageUrl} alt={item.name} className="card-image" />
+        </div>
+        <div className="card-info">
+          <h3 className="product-name">{item.name}</h3>
+          <div className="price-info">
+            <span className="current-price">₹{item.price}</span>
+            <span className="original-price">₹{item.originalPrice}</span>
+            <span className="discount">{item.discount}% off</span>
+          </div>
+          <span className="free-delivery">🚚 Free Delivery</span>
+        </div>
+      </div>
+    </Link>
+  ))
+) : (
+  <div className="search-filter-alert">
+    <p>No products found for "{selectedCategory}"</p>
+  </div>
+)}
+
         </div>
       </div>
     </div>
