@@ -45,17 +45,34 @@ const Home = ({ searchQuery = "", onSearch }) => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const categoryParam = queryParams.get("category");
-
+    const categoryParam = queryParams.get("category") || "";
+    setSelectedCategory(categoryParam);
+  
+    let updatedProducts = [...products];
+  
+    // Filter by category only if a category is selected
     if (categoryParam) {
-      setSelectedCategory(categoryParam);
-      const filtered = products.filter((product) => product.category === categoryParam);
-      setFilteredProducts(filtered);
+      updatedProducts = updatedProducts.filter((product) => product.category === categoryParam);
     }
-  }, [location.search, products]);
+  
+    // Apply search filter
+    if (searchQuery.trim()) {
+      updatedProducts = updatedProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.trim().toLowerCase())
+      );
+    }
+  
+    setFilteredProducts(updatedProducts);
+  }, [location.search, products, searchQuery]);
+  
+  
 
   const handleCategoryClick = (category) => {
-    navigate(`/home?category=${category}`);
+    if (category === "") {
+      navigate("/home"); // removes ?category= from URL
+    } else {
+      navigate(`/home?category=${category}`);
+    }
   };
 
   return (

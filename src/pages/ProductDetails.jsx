@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import VerifiedIcon from '@mui/icons-material/Verified';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import CircularProgress from '@mui/material/CircularProgress';
 import "./ProductDetails.css";
 
 const ProductDetails = () => {
@@ -34,10 +35,15 @@ const ProductDetails = () => {
   }, [id]);
 
   if (!product) {
-    return <h2>Loading product details...</h2>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+        <CircularProgress />
+      </div>
+    );
   }
+  
 
-  const whatsappGroupLink = "https://chat.whatsapp.com/BBkmScIBR1y0fZbLiP2WsI";
+  //const whatsappGroupLink = "https://chat.whatsapp.com/BBkmScIBR1y0fZbLiP2WsI";
 
   const handlePurchaseClick = () => {
     if (whatsappGroupLink) {
