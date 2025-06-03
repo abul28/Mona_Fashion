@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/icon-192x192.png', 'icons/mf_logo.png'],
+      includeAssets: ['icons/icon-192x192.png', 'icons/icon-512x512.png'],
       manifest: {
         name: 'Mona Fashions',
         short_name: 'Mona Fashions',
@@ -23,7 +23,7 @@ export default defineConfig({
             type: 'image/png',
           },
           {
-            src: 'icons/mf_logo.png',
+            src: 'icons/icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
           }
