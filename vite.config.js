@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/icon-192x192.png', 'icons/mf_logo.png'],
       manifest: {
-        name: 'Queens Court',
-        short_name: 'QueensCourt',
-        description: 'Queens Court Fashion Store',
+        name: 'Mona Fashions',
+        short_name: 'Mona Fashions',
+        description: 'Mona Fashions Fashion Store',
         start_url: '/',
         display: 'standalone',
         background_color: 'black',
