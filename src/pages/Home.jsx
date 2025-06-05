@@ -95,19 +95,31 @@ const Home = ({ searchQuery = "", onSearch }) => {
   filteredProducts.map((item) => (
     <Link to={`/product/${item.id}`} key={item.id} style={{ textDecoration: 'none', color: 'inherit' }}>
       <div className="clothing-card">
-        <div className="flex">
-          <img src={item.imageUrl} alt={item.name} className="card-image" />
-        </div>
-        <div className="card-info">
-          <h3 className="product-name">{item.name}</h3>
-          <div className="price-info">
-            <span className="current-price">₹{item.price}</span>
-            <span className="original-price">₹{item.originalPrice}</span>
-            <span className="discount">{item.discount}% off</span>
-          </div>
-          <span className="free-delivery">🚚 Free Delivery</span>
-        </div>
-      </div>
+  <div className="flex">
+    {item.imageUrls && item.imageUrls.length > 0 ? (
+      <img
+        src={item.imageUrls[0]}
+        alt={item.name}
+        className="card-image"
+      />
+    ) : item.imageUrl ? (
+      <img
+        src={item.imageUrl}
+        alt={item.name}
+        className="card-image"
+      />
+    ) : null}
+  </div>
+  <div className="card-info">
+    <h3 className="product-name">{item.name}</h3>
+    <div className="price-info">
+      <span className="current-price">₹{item.price}</span>
+      <span className="original-price">₹{item.originalPrice}</span>
+      <span className="discount">{item.discount}% off</span>
+    </div>
+    <span className="free-delivery">🚚 Free Delivery</span>
+  </div>
+</div>
     </Link>
   ))
 ) : (

@@ -56,13 +56,16 @@ const ManageProducts = () => {
     imageUrl: "",
     sizes: [],
     category: "",
+    infoType1: "",       // ✅ add this
+    infoType2: "",
     id: null,
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [imagePreview, setImagePreview] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const availableSizes = ["S", "M", "L", "XL", "XXL"];
+  const availableSizes = ["S", "M", "L", "XL", "XXL", "FREE SIZE"];
+  const infoTypeOptions = ["Saree Length", "Blouse Length", "Pattern", "Sleeve"];
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -141,15 +144,10 @@ const ManageProducts = () => {
   };
 
   const handleImagesUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    const files = Array.from(e.target.files);
+    setImageFiles(files);
+    const previews = files.map(file => URL.createObjectURL(file));
+    setImagePreviews(previews);
   };
 
   const uploadImagesToImgBB = async (files) => {
@@ -177,15 +175,15 @@ const ManageProducts = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      let imageUrl = "";
+      let imageUrls = [];
 
-      if (imageFile) {
-        imageUrl = (await uploadImagesToImgBB([imageFile]))[0];
-      }
+        if (imageFiles.length > 0) {
+            imageUrls = await uploadImagesToImgBB(imageFiles);
+          }
 
       await addDoc(collection(firestore, "products"), {
         ...newProduct,
-        imageUrl,
+        imageUrls,
         timestamp: serverTimestamp(),
       });
 
@@ -198,13 +196,15 @@ const ManageProducts = () => {
         originalPrice: "",
         discount: "",
         price: "",
-        imageUrl: "",
+        imageUrls: [],
         sizes: [],
         category: "",
+        infoType1: "",       // ✅ add this
+        infoType2: "", 
         timestamp: serverTimestamp(),
       });
-      setImageFile(null);
-      setImagePreview("");
+      setImageFiles([]);
+      setImagePreviews([]);
       setAlertMessage("Product Added successfully!");
       setShowSuccessAlert(true);
       setTimeout(() => setShowSuccessAlert(false), 3000); // auto-hide after 3s
@@ -216,23 +216,23 @@ const ManageProducts = () => {
 
   const handleEditProduct = (product) => {
     setNewProduct(product);
-    setImagePreview(product.imageUrl);
+    setImagePreviews(product.imageUrls || []);
     setIsEditing(true);
   };
 
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
     try {
-      let updatedImageUrl = newProduct.imageUrl;
+      let updatedImageUrls = newProduct.imageUrls || [];
 
-      if (imageFile) {
-        updatedImageUrl = (await uploadImagesToImgBB([imageFile]))[0];
-      }
+        if (imageFiles.length > 0) {
+            updatedImageUrls = await uploadImagesToImgBB(imageFiles);
+          }
 
       const productRef = doc(firestore, "products", newProduct.id);
       await updateDoc(productRef, {
         ...newProduct,
-        imageUrl: updatedImageUrl,
+        imageUrls: updatedImageUrls,
         updatedAt: serverTimestamp(),
       });
 
@@ -246,13 +246,15 @@ const ManageProducts = () => {
         originalPrice: "",
         discount: "",
         price: "",
-        imageUrl: "",
+        imageUrls: [],
         sizes: [],
         category: "",
+        infoType1: "",       // ✅ add this
+        infoType2: "", 
         updatedAt: serverTimestamp(),
       });
-      setImageFile(null);
-      setImagePreview("");
+      setImageFiles([]);
+      setImagePreviews([]);
       setAlertMessage("Product updated successfully!");
       setShowSuccessAlert(true);
       setTimeout(() => setShowSuccessAlert(false), 3000);
@@ -329,6 +331,22 @@ const ManageProducts = () => {
           margin="normal"
           required
         />
+
+<FormControl variant="outlined" size="small" fullWidth margin="normal">
+  <InputLabel>Info-Type1</InputLabel>
+  <Select
+    value={newProduct.infoType1}
+    onChange={(e) => setNewProduct({ ...newProduct, infoType1: e.target.value })}
+    label="Info-Type1"
+  >
+    {infoTypeOptions.map((option) => (
+      <MenuItem key={option} value={option}>
+        {option}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
+
         <TextField
           label="Sleeve"
           name="sleeve"
@@ -340,6 +358,22 @@ const ManageProducts = () => {
           margin="normal"
           required
         />
+
+<FormControl variant="outlined" size="small" fullWidth margin="normal">
+  <InputLabel>Info-Type2</InputLabel>
+  <Select
+    value={newProduct.infoType2}
+    onChange={(e) => setNewProduct({ ...newProduct, infoType2: e.target.value })}
+    label="Info-Type2"
+  >
+    {infoTypeOptions.map((option) => (
+      <MenuItem key={option} value={option}>
+        {option}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
+
         <TextField
           label="Pattern"
           name="pattern"
@@ -438,15 +472,21 @@ const ManageProducts = () => {
   </DialogActions>
 </Dialog>
 
-        <input type="file" onChange={handleImagesUpload} style={{ marginTop: '16px' }} />
-        {imagePreview && (
-          <img
-            src={imagePreview}
-            alt="Product Preview"
-            className="preview"
-            style={{ width: '100px', height: '100px', marginTop: '16px' }}
-          />
-        )}
+<input
+  type="file"
+  onChange={handleImagesUpload}
+  multiple
+  style={{ marginTop: '16px' }}
+/>
+
+{imagePreviews.length > 0 && (
+  <img
+    src={imagePreviews[0]}
+    alt="Product Preview"
+    className="preview"
+    style={{ width: '100px', height: '100px', marginTop: '16px', objectFit: 'cover', borderRadius: '8px' }}
+  />
+)}
 
         <Button
           type="submit"

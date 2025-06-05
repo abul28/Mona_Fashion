@@ -460,6 +460,35 @@ margin-right: -20px;
   min-width: 24px;
   text-align: center;
 }
+
+.product-image-carousel {
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+
+  /* Hide scrollbar - works in most browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer and Edge */
+}
+
+.product-image-carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.carousel-container {
+  display: flex;
+  gap: 12px;
+}
+
+.carousel-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
 }
   
   

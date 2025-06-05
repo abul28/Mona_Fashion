@@ -69,7 +69,11 @@ const EditDeleteProducts = () => {
 
       {filteredProducts.map((product) => (
         <div key={product.id} className="list-item">
-          <img src={product.imageUrl} alt={product.name} className="item-image" />
+          <img
+  src={product.imageUrls?.[0] || product.imageUrl || "/placeholder.png"}
+  alt={product.name}
+  className="item-image"
+/>
           <div className="item-details">
             <p className="item-name">{product.name}</p>
             <p className="item-status">Description: {product.description || "N/A"}</p>

@@ -11,7 +11,7 @@ import "./ProductDetails.css";
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [selectedSize, setSelectedSize] = useState("M"); // Default size is 'M'
+  const [selectedSize, setSelectedSize] = useState([]); // Default size is 'M'
   const [availableSizes, setAvailableSizes] = useState([]); // Store fetched sizes
   const [quantity, setQuantity] = useState(1);
 
@@ -23,7 +23,7 @@ const ProductDetails = () => {
         if (docSnap.exists()) {
           const productData = docSnap.data();
           setProduct(productData);
-          setAvailableSizes(productData.sizes || []); // Fetch available sizes
+          setAvailableSizes(productData.sizes || []); // This drives the logic
         } else {
           console.log("No such product!");
         }
@@ -31,7 +31,7 @@ const ProductDetails = () => {
         console.error("Error fetching product:", error);
       }
     };
-
+  
     fetchProduct();
   }, [id]);
 
@@ -69,9 +69,26 @@ const ProductDetails = () => {
     <div className="product-layout">
       
       {/* Left - Image Section */}
-      <div className="product-image-section">
-        <img src={product.imageUrl} alt={product.name} className="product-image" />
-      </div>
+      <div className="product-image-carousel">
+  {product.imageUrls && product.imageUrls.length > 0 ? (
+    <div className="carousel-container">
+      {product.imageUrls.map((url, index) => (
+        <img
+          key={index}
+          src={url}
+          alt={`Product Image ${index + 1}`}
+          className="carousel-image"
+        />
+      ))}
+    </div>
+  ) : (
+    <img
+      src={product.imageUrl}
+      alt={product.name}
+      className="product-image"
+    />
+  )}
+</div>
 
       {/* Right - Product Details */}
       <div className="product-info-container">
@@ -86,26 +103,39 @@ const ProductDetails = () => {
   <div className="quantity-selector">
     <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}>-</button>
     <span>{quantity}</span>
-    <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
+    <button onClick={() => setQuantity((prev) => Math.min(10, prev + 1))}>+</button>
   </div>
 </div>
 
-        {/* Size Selection */}
-        <div className="size-selection">
-          <label>Select Size</label>
-          <div className="size-options">
-            {["S", "M", "L", "XL", "XXL"].map((size) => (
-              <button
-                key={size}
-                className={`size-button ${selectedSize === size ? "selected" : ""}`}
-                onClick={() => availableSizes.includes(size) && setSelectedSize(size)}
-                disabled={!availableSizes.includes(size)}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-        </div>
+<div className="size-selection">
+  <label>Select Size</label>
+  <div className="size-options">
+    {availableSizes.includes("FREE SIZE") && availableSizes.length === 1 ? (
+      // Only FREE SIZE is selected
+      <button
+        key="FREE SIZE"
+        className={`size-button ${selectedSize === "FREE SIZE" ? "selected" : ""}`}
+        onClick={() => setSelectedSize("FREE SIZE")}
+      >
+        FREE SIZE
+      </button>
+    ) : (
+      // Standard sizes logic
+      ["S", "M", "L", "XL", "XXL"].map((size) => (
+        <button
+          key={size}
+          className={`size-button ${selectedSize === size ? "selected" : ""}`}
+          onClick={() =>
+            availableSizes.includes(size) && setSelectedSize(size)
+          }
+          disabled={!availableSizes.includes(size)}
+        >
+          {size}
+        </button>
+      ))
+    )}
+  </div>
+</div>
 
         {/* Assurance Section */}
         <div className="assurance-section">
