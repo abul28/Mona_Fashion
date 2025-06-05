@@ -53,11 +53,12 @@ const ManageProducts = () => {
     originalPrice: "",
     discount: "",
     price: "",
-    imageUrl: "",
+    imageUrls: [],
     sizes: [],
     category: "",
     infoType1: "",       // ✅ add this
     infoType2: "",
+    tag: "",
     id: null,
   });
   const [isEditing, setIsEditing] = useState(false);
@@ -66,13 +67,14 @@ const ManageProducts = () => {
   const [isLoading, setIsLoading] = useState(true);
   const availableSizes = ["S", "M", "L", "XL", "XXL", "FREE SIZE"];
   const infoTypeOptions = ["Saree Length", "Blouse Length", "Pattern", "Sleeve"];
+  const tagOptions = ["Sold Out", "New Arrival", "Best Selling"];
   const navigate = useNavigate();
 
   const location = useLocation();
   useEffect(() => {
     if (location.state?.productToEdit) {
       setNewProduct(location.state.productToEdit);
-      setImagePreview(location.state.productToEdit.imageUrl);
+      setImagePreviews(location.state.productToEdit.imageUrls);
       setIsEditing(true);
     }
   }, [location.state]);
@@ -201,6 +203,7 @@ const ManageProducts = () => {
         category: "",
         infoType1: "",       // ✅ add this
         infoType2: "", 
+        tag: "",
         timestamp: serverTimestamp(),
       });
       setImageFiles([]);
@@ -251,6 +254,7 @@ const ManageProducts = () => {
         category: "",
         infoType1: "",       // ✅ add this
         infoType2: "", 
+        tag: "",
         updatedAt: serverTimestamp(),
       });
       setImageFiles([]);
@@ -437,6 +441,28 @@ const ManageProducts = () => {
           ))}
         </FormGroup>
         
+        <Typography sx={{ marginTop: 2 }}>Select Product Tag</Typography>
+<FormGroup row sx={{ marginTop: 0.5 }}>
+  {tagOptions.map((tag) => (
+    <FormControlLabel
+      key={tag}
+      control={
+        <Checkbox
+          size="small"
+          checked={newProduct.tag === tag}
+          onChange={() => {
+            setNewProduct((prev) => ({
+              ...prev,
+              tag: prev.tag === tag ? "" : tag, // Toggle off if clicked again
+            }));
+          }}
+        />
+      }
+      label={tag}
+    />
+  ))}
+</FormGroup>
+        
         <FormControl variant="outlined" size="small" fullWidth>
   <InputLabel>Select Category</InputLabel>
   <Select 
@@ -479,7 +505,7 @@ const ManageProducts = () => {
   style={{ marginTop: '16px' }}
 />
 
-{imagePreviews.length > 0 && (
+{imagePreviews?.length > 0 && (
   <img
     src={imagePreviews[0]}
     alt="Product Preview"

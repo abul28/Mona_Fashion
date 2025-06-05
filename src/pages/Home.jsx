@@ -95,7 +95,23 @@ const Home = ({ searchQuery = "", onSearch }) => {
   filteredProducts.map((item) => (
     <Link to={`/product/${item.id}`} key={item.id} style={{ textDecoration: 'none', color: 'inherit' }}>
       <div className="clothing-card">
-  <div className="flex">
+  <div className="image-container">
+    {item.tag && (
+      <span
+      className="tag-badge"
+      style={{
+        backgroundColor:
+          item.tag === "Sold Out"
+            ? "#CD5656"
+            : item.tag === "New Arrival"
+            ? "#55AD9B"
+            : "#A594F9" // Default for Best Selling
+      }}
+    >
+      {item.tag.toUpperCase()}
+    </span>
+    )}
+
     {item.imageUrls && item.imageUrls.length > 0 ? (
       <img
         src={item.imageUrls[0]}
@@ -110,6 +126,7 @@ const Home = ({ searchQuery = "", onSearch }) => {
       />
     ) : null}
   </div>
+
   <div className="card-info">
     <h3 className="product-name">{item.name}</h3>
     <div className="price-info">
