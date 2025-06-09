@@ -6,6 +6,7 @@ import BottomNav from "./components/BottomNav";
 import ProductDetails from "./pages/ProductDetails";
 import Tabview from "./pages/Tabview";
 import Login from "./pages/Login";
+import ConfirmOrder from "./pages/ConfirmOrder";
 import Category from "./pages/Category";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/FirebaseService";
@@ -93,6 +94,7 @@ const MainContent = ({ searchQuery, setSearchQuery, isAuthenticated, setIsAuthen
         <Route path="/login" element={<Login setIsGuest={setIsGuest} setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/home" element={<Home searchQuery={searchQuery} />} />
         <Route path="/product/:id" element={<ProductDetails />} /> 
+        <Route path="/confirm-order" element={<ConfirmOrder />} />
         <Route path="/categories" element={<Category />} />
         <Route 
           path="/products" 

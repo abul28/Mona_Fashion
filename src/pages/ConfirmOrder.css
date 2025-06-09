@@ -1,0 +1,174 @@
+/* ConfirmOrder.css */
+
+.confirm-container {
+    padding: 16px;
+    padding-bottom: 100px; /* for bottom fixed button */
+    max-width: 600px;
+    margin: auto;
+    overflow-y: scroll;
+  }
+  
+  /* .order-form input,
+  .order-form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  } */
+  
+  .price-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  }
+  
+  .price-box h3 {
+    font-size: 18px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+  }
+  
+  .price-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .price-detail-row .green {
+    color: green;
+  }
+  
+  .total-row {
+    font-weight: bold;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .save-message {
+    background-color: #e8f5e9;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+    color: green;
+    font-size: 14px;
+  }
+  
+  .confirm-btn-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0; /* remove extra padding */
+    margin: 0;
+    z-index: 1000;
+  }
+  
+  .confirm-btn-container button {
+    width: 100vw; /* full viewport width */
+    padding: 16px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 0; /* remove rounded corners */
+    cursor: pointer;
+  }
+  
+  .confirm-btn-container button:hover {
+    background-color: black;
+  }
+  
+
+  .product-summary {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+  }
+  
+  .product-summary .tag {
+    background-color: #e8f5e9;
+    color: green;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  .summary-content {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  
+  .details h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .rating {
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+    align-items: center;
+    margin-top: 4px;
+  }
+  
+  .stars {
+    color: #388e3c;
+  }
+  
+  .rating-value {
+    color: #388e3c;
+  }
+  
+  .rating-count {
+    color: #888;
+  }
+  
+  .discount-info {
+    margin: 8px 0;
+    font-size: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .discount {
+    color: green;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  .final-price {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .free {
+    color: green;
+  }
+  
+  

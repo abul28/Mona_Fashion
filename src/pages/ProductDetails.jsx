@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { firestore } from "../firebase/FirebaseService";
 import { doc, getDoc } from "firebase/firestore";
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -20,6 +20,7 @@ const ProductDetails = () => {
   const [showTerms, setShowTerms] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -51,29 +52,27 @@ const ProductDetails = () => {
   
 
   const handlePurchaseClick = () => {
-
     if (!isChecked) {
       setAlertMessage("Please agree to the Terms and Conditions before placing your order.");
       setShowSuccessAlert(true);
       setTimeout(() => setShowSuccessAlert(false), 3000);
       return;
     }
-
-    const phoneNumber = "9840402558"; // Your business number
   
-    // Get current order number from localStorage or start at 1
-    let orderNumber = localStorage.getItem("orderNumber");
-    orderNumber = orderNumber ? parseInt(orderNumber) + 1 : 1;
+    if (!selectedSize || selectedSize.length === 0) {
+      setAlertMessage("Please select a size before placing your order.");
+      setShowSuccessAlert(true);
+      setTimeout(() => setShowSuccessAlert(false), 3000);
+      return;
+    }
   
-    // Save updated order number back to localStorage
-    localStorage.setItem("orderNumber", orderNumber);
-  
-    // Format order number as #0001, #0002, etc.
-    const formattedOrderNumber = `#${orderNumber.toString().padStart(4, '0')}`;
-  
-    const message = `*Order Number:* ${formattedOrderNumber}\n*Product Name:* ${product.name}\n*Color:* ${product.color}\n*Price:* ₹${product.price}\n*Size:* ${selectedSize}\n*Quantity:* ${quantity}\n*Image:* ${product.imageUrl}`;
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    navigate("/confirm-order", {
+      state: {
+        product: { id }, // Only pass ID
+        selectedSize,
+        quantity,
+      },
+    });
   };
 
   return (
