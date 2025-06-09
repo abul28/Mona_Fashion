@@ -6,6 +6,8 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import CircularProgress from '@mui/material/CircularProgress';
+import Slide from '@mui/material/Slide';
+import MuiAlert from '@mui/material/Alert';
 import "./ProductDetails.css";
 
 const ProductDetails = () => {
@@ -14,6 +16,10 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState([]); // Default size is 'M'
   const [availableSizes, setAvailableSizes] = useState([]); // Store fetched sizes
   const [quantity, setQuantity] = useState(1);
+  const [isChecked, setIsChecked] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -45,6 +51,14 @@ const ProductDetails = () => {
   
 
   const handlePurchaseClick = () => {
+
+    if (!isChecked) {
+      setAlertMessage("Please agree to the Terms and Conditions before placing your order.");
+      setShowSuccessAlert(true);
+      setTimeout(() => setShowSuccessAlert(false), 3000);
+      return;
+    }
+
     const phoneNumber = "9840402558"; // Your business number
   
     // Get current order number from localStorage or start at 1
@@ -67,7 +81,24 @@ const ProductDetails = () => {
   <div className="product-scrollable-content">
     {/* Desktop Layout Wrapper */}
     <div className="product-layout">
-      
+    <Slide direction="down" in={showSuccessAlert} mountOnEnter unmountOnExit>
+  <MuiAlert
+    elevation={6}
+    variant="filled"
+    sx={{
+      position: 'fixed',
+      backgroundColor: '#F67280',
+      top: 20,
+      right: 20,
+      zIndex: 9999,
+      boxShadow: 3,
+      width: 'auto',
+      minWidth: '250px'
+    }}
+  >
+    {alertMessage}
+  </MuiAlert>
+</Slide>
       {/* Left - Image Section */}
       <div className="product-image-carousel">
   {product.imageUrls && product.imageUrls.length > 0 ? (
@@ -92,7 +123,14 @@ const ProductDetails = () => {
 
       {/* Right - Product Details */}
       <div className="product-info-container">
-        <h1 className="product-title">{product.name}</h1>
+      <h1 className="product-title">
+  {product.name}
+  {product.packOf && (
+    <span style={{ marginLeft: '10px', fontSize: '16px', color: '#555' }}>
+      ({product.packOf})
+    </span>
+  )}
+</h1>
 
         <div className="price-section">
   <div className="price-info">
@@ -176,6 +214,21 @@ const ProductDetails = () => {
               <span className="info-value">{product.pattern}</span>
             </div>
           </div>
+          <div className="terms-container">
+  <input
+    type="checkbox"
+    id="termsCheckbox"
+    checked={isChecked}
+    onChange={() => setIsChecked(!isChecked)}
+  />
+  <label htmlFor="termsCheckbox" className="terms-label">
+    I agree to the{" "}
+    <span className="terms-link" onClick={() => setShowTerms(true)}>
+  Terms and Conditions
+</span>
+
+  </label>
+</div>  
         </div>
 
         {/* Place Order Button */}
@@ -183,6 +236,19 @@ const ProductDetails = () => {
       </div>
     </div>
   </div>
+  {showTerms && (
+    <div className="modal-overlay" onClick={() => setShowTerms(false)}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <h3>Terms & Conditions</h3>
+        <p>
+        To ensure a smooth return process, please record a video while opening your package. Returns without video proof may not be accepted.
+        </p>
+        <button className="close-btn" onClick={() => setShowTerms(false)}>
+          Close
+        </button>
+      </div>
+    </div>
+  )}
 </div>
 
   );

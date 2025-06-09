@@ -489,6 +489,55 @@ margin-right: -20px;
   border-radius: 10px;
   flex-shrink: 0;
 }
+
+.terms-container {
+  margin: 20px 0 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.terms-label {
+  margin-left: 5px;
+}
+
+.terms-link {
+  color: #553c8b;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999; /* High value to appear above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 400px;
+  z-index: 10000;
+}
+
+
+.close-btn {
+  margin-top: 15px;
+  padding: 8px 20px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 }
   
   

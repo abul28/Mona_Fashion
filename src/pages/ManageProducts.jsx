@@ -59,6 +59,7 @@ const ManageProducts = () => {
     infoType1: "",       // ✅ add this
     infoType2: "",
     tag: "",
+    packOf: "",
     id: null,
   });
   const [isEditing, setIsEditing] = useState(false);
@@ -68,13 +69,14 @@ const ManageProducts = () => {
   const availableSizes = ["S", "M", "L", "XL", "XXL", "FREE SIZE"];
   const infoTypeOptions = ["Saree Length", "Blouse Length", "Pattern", "Sleeve"];
   const tagOptions = ["Sold Out", "New Arrival", "Best Selling"];
+  const packOfOptions = ["Pack of 2", "Pack of 3"];
   const navigate = useNavigate();
 
   const location = useLocation();
   useEffect(() => {
     if (location.state?.productToEdit) {
       setNewProduct(location.state.productToEdit);
-      setImagePreviews(location.state.productToEdit.imageUrls);
+      setImagePreviews(location.state.productToEdit.imageUrls || []);
       setIsEditing(true);
     }
   }, [location.state]);
@@ -204,6 +206,7 @@ const ManageProducts = () => {
         infoType1: "",       // ✅ add this
         infoType2: "", 
         tag: "",
+        packOf: "",
         timestamp: serverTimestamp(),
       });
       setImageFiles([]);
@@ -255,6 +258,7 @@ const ManageProducts = () => {
         infoType1: "",       // ✅ add this
         infoType2: "", 
         tag: "",
+        packOf: "",
         updatedAt: serverTimestamp(),
       });
       setImageFiles([]);
@@ -441,6 +445,28 @@ const ManageProducts = () => {
           ))}
         </FormGroup>
         
+        <Typography sx={{ marginTop: 2 }}>Pack Of</Typography>
+<FormGroup row sx={{ marginTop: 0.5 }}>
+  {packOfOptions.map((option) => (
+    <FormControlLabel
+      key={option}
+      control={
+        <Checkbox
+          size="small"
+          checked={newProduct.packOf === option}
+          onChange={() =>
+            setNewProduct((prev) => ({
+              ...prev,
+              packOf: prev.packOf === option ? "" : option
+            }))
+          }
+        />
+      }
+      label={option}
+    />
+  ))}
+</FormGroup>
+
         <Typography sx={{ marginTop: 2 }}>Select Product Tag</Typography>
 <FormGroup row sx={{ marginTop: 0.5 }}>
   {tagOptions.map((tag) => (

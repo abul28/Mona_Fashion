@@ -404,16 +404,15 @@
 
   .tag-badge {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    background-color: #00b894; /* green badge */
+    top: 4px;              
+    left: 4px;             
     color: white;
-    font-weight: bold;
-    padding: 4px 10px;
-    font-size: 12px;
-    border-radius: 4px;
+    font-weight: 600;      
+    padding: 2px 6px;      
+    font-size: 10px;       
+    border-radius: 3px;    
     z-index: 1;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15); 
   }
   
 }
