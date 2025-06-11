@@ -22,20 +22,25 @@ const Category = () => {
         const fetchedCategories = await Promise.all(
           categorySnapshot.docs.map(async (doc) => {
             const categoryData = doc.data();
-
+        
+            // Fetch all products in the category
             const productQuery = query(
               collection(firestore, "products"),
               where("category", "==", categoryData.name),
-              orderBy("timestamp", "desc"),
-              limit(1)
+              orderBy("timestamp", "desc"),  
+              limit(1) // Fetch only the latest product
             );
-
+        
             const productSnapshot = await getDocs(productQuery);
-            const latestProduct = productSnapshot.docs[0]?.data();
-
+            const productList = productSnapshot.docs.map(doc => doc.data());
+        
             return {
               ...categoryData,
-              img: latestProduct?.imageUrl || "",
+              img: productList.length > 0
+                ? (productList[0]?.imageUrls?.length > 0 
+                  ? productList[0]?.imageUrls[0] 
+                  : productList[0]?.imageUrl) // First image from imageUrls or fallback to imageUrl
+                : "", 
             };
           })
         );

@@ -125,26 +125,6 @@
     font-weight: 600;
   }
   
-  .rating {
-    display: flex;
-    gap: 4px;
-    font-size: 14px;
-    align-items: center;
-    margin-top: 4px;
-  }
-  
-  .stars {
-    color: #388e3c;
-  }
-  
-  .rating-value {
-    color: #388e3c;
-  }
-  
-  .rating-count {
-    color: #888;
-  }
-  
   .discount-info {
     margin: 8px 0;
     font-size: 15px;

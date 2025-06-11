@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ConfirmOrder.css';
 import { useLocation, useNavigate } from "react-router-dom";
 import { TextField, Typography } from '@mui/material';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, addDoc, runTransaction, collection, serverTimestamp } from "firebase/firestore";
 import { firestore } from '../firebase/FirebaseService';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -10,6 +10,16 @@ const ConfirmOrder = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [productData, setProductData] = useState(null);
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [buildingNo, setBuildingNo] = useState('');
+  const [streetName, setStreetName] = useState('');
+  const [city, setCity] = useState('');
+  const [stateName, setStateName] = useState('');
+  const [pincode, setPincode] = useState('');
+
+  const [loading, setLoading] = useState(false);
 
   const { product, selectedSize, quantity = 1 } = state || {};
 
@@ -27,6 +37,69 @@ const ConfirmOrder = () => {
     fetchProduct();
   }, [product]);
 
+  const handleConfirmOrder = async () => {
+    if (!name || !phone || !buildingNo || !streetName || !city || !stateName || !pincode) {
+      alert("Please fill all fields");
+      return;
+    }
+  
+    try {
+      // Start Firestore transaction
+      const orderId = await runTransaction(firestore, async (transaction) => {
+        const counterRef = doc(firestore, "counters", "orderCounter");
+        const counterSnap = await transaction.get(counterRef);
+  
+        if (!counterSnap.exists()) {
+          throw "Counter document does not exist!";
+        }
+  
+        const currentCount = counterSnap.data().count || 0;
+        const newCount = currentCount + 1;
+  
+        transaction.update(counterRef, { count: newCount });
+  
+        return newCount;
+      });
+  
+      // Format orderId like "#0001"
+      const formattedOrderId = `#${String(orderId).padStart(4, "0")}`;
+  
+      // Save order data
+      const orderData = {
+        orderId: formattedOrderId,
+        name,
+        phone,
+        address: `${buildingNo}, ${streetName}, ${city}, ${stateName} - ${pincode}`,
+        buildingNo,
+        streetName,
+        city,
+        state: stateName,
+        pincode,
+        productId: product.id,
+        quantity,
+        size: selectedSize,
+        productName: productData.name,
+        price: productData.price,
+        totalPrice: productData.price * quantity,
+        image: productData.imageUrls?.[0] || productData.imageUrl,
+        status: "Order", // ✅ Add this line
+        originalPrice: productData.originalPrice,
+        discount: productData.discount,
+        color: productData.color || 'Blue',
+        timestamp: serverTimestamp()
+      };
+      
+      
+  
+      await addDoc(collection(firestore, "orders"), orderData);
+      alert(`Order placed successfully with ID ${formattedOrderId}`);
+      navigate("/"); // or redirect to thank you page
+    } catch (error) {
+      console.error("Order failed", error);
+      alert("Failed to place order. Please try again.");
+    }
+  };
+
   if (!productData) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
@@ -35,20 +108,30 @@ const ConfirmOrder = () => {
     );
   }
 
-  // 👉 Dynamic Calculations
   const totalOriginalPrice = productData.originalPrice * quantity;
   const totalFinalPrice = productData.price * quantity;
   const totalDiscount = totalOriginalPrice - totalFinalPrice;
-//   const platformFee = 4;
-  const totalAmount = totalFinalPrice;
+  const totalAmount = totalFinalPrice; 
 
   return (
     <div className="confirm-container">
       {/* Form Fields */}
       <div className="order-form">
-        <TextField label="Name" variant="outlined" fullWidth margin="normal" />
-        <TextField label="Phone Number" type="tel" variant="outlined" fullWidth margin="normal" />
-        <TextField label="Address" variant="outlined" multiline rows={3} fullWidth margin="normal" />
+        <TextField label="Name" variant="outlined" fullWidth margin="normal" size='small' value={name} onChange={(e) => setName(e.target.value)} />
+        <TextField label="Phone Number" variant="outlined" fullWidth margin="normal" value={phone} size='small'
+                    inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}
+                    onChange={(e) => {
+                const onlyNums = e.target.value.replace(/\D/g, '');
+                    if (onlyNums.length <= 10) {
+                        setPhone(onlyNums);
+                    }
+                }}
+        />
+        <TextField label="Building No" variant="outlined" fullWidth margin="normal" size='small' value={buildingNo} onChange={(e) => setBuildingNo(e.target.value)} />
+        <TextField label="Street Name" variant="outlined" fullWidth margin="normal" size='small' value={streetName} onChange={(e) => setStreetName(e.target.value)} />
+        <TextField label="City" variant="outlined" fullWidth margin="normal" size='small' value={city} onChange={(e) => setCity(e.target.value)} />
+        <TextField label="State" variant="outlined" fullWidth margin="normal" size='small' value={stateName} onChange={(e) => setStateName(e.target.value)} />
+        <TextField label="Pincode" variant="outlined" fullWidth margin="normal" size='small' value={pincode} onChange={(e) => setPincode(e.target.value)} />
       </div>
 
       {/* Product Summary Section */}
@@ -87,7 +170,9 @@ const ConfirmOrder = () => {
 
       {/* Confirm Order Button */}
       <div className="confirm-btn-container">
-        <button>Confirm Order</button>
+        <button onClick={handleConfirmOrder} disabled={loading}>
+          {loading ? "Placing Order..." : "Confirm Order"}
+        </button>
       </div>
     </div>
   );
