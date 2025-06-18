@@ -23,15 +23,15 @@ const ManageProductTabs = () => {
   sx={{
     overflowX: 'auto', 
     '& .MuiTab-root': {
-      color: '#553C8B',
+      color: '#black',
       whiteSpace: 'nowrap', // default text color
     },
     '& .Mui-selected': {
-      color: '#553C8B', // selected tab label color
+      color: '#black', // selected tab label color
       fontWeight: 'bold',
     },
     '& .MuiTabs-indicator': {
-      backgroundColor: '#553C8B', // indicator line color
+      backgroundColor: '#black', // indicator line color
     },
   }}>
         <Tab label="Add Product"/>
