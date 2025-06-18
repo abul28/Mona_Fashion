@@ -18,6 +18,9 @@ const ConfirmOrder = () => {
   const [city, setCity] = useState('');
   const [stateName, setStateName] = useState('');
   const [pincode, setPincode] = useState('');
+  const [showPacking, setShowPacking] = useState(false);
+const [orderSuccess, setOrderSuccess] = useState(false);
+
 
   const [loading, setLoading] = useState(false);
 
@@ -37,35 +40,32 @@ const ConfirmOrder = () => {
     fetchProduct();
   }, [product]);
 
-  const handleConfirmOrder = async () => {
+ const handleConfirmOrder = async () => {
   if (!name || !phone || !buildingNo || !streetName || !city || !stateName || !pincode) {
     alert("Please fill all fields");
     return;
   }
 
+  setLoading(true);
+  setShowPacking(true);
+
   try {
-    // Firestore transaction for order ID
     const orderId = await runTransaction(firestore, async (transaction) => {
       const counterRef = doc(firestore, "counters", "orderCounter");
       const counterSnap = await transaction.get(counterRef);
-
-      if (!counterSnap.exists()) {
-        throw "Counter document does not exist!";
-      }
-
+      if (!counterSnap.exists()) throw "Counter document does not exist!";
       const newCount = (counterSnap.data().count || 0) + 1;
       transaction.update(counterRef, { count: newCount });
       return newCount;
     });
 
     const formattedOrderId = `#${String(orderId).padStart(4, "0")}`;
-
-    // Save order data
     const orderData = {
       orderId: formattedOrderId,
       name,
       phone,
       address: `${buildingNo}, ${streetName}, ${city}, ${stateName} - ${pincode}`,
+      buildingNo, streetName, city, stateName, pincode,
       productId: product.id,
       quantity,
       size: selectedSize,
@@ -78,44 +78,22 @@ const ConfirmOrder = () => {
     };
 
     await addDoc(collection(firestore, "orders"), orderData);
-    const whatsappResponse = await fetch("https://graph.facebook.com/v19.0/YOUR_PHONE_NUMBER_ID/messages", {
-  method: "POST",
-  headers: {
-    Authorization: "Bearer YOUR_ACCESS_TOKEN", // Replace with your real token
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    messaging_product: "whatsapp",
-    to: `91${phone}`, // Customer's WhatsApp number
-    type: "template",
-    template: {
-      name: "order_status", // Your approved WhatsApp template name
-      language: { code: "en_US" },
-      components: [
-        {
-          type: "body",
-          parameters: [
-            { type: "text", text: formattedOrderId },
-            { type: "text", text: `₹${orderData.totalPrice}` },
-            { type: "text", text: `https://monafashion.vercel.app/trackingOrders/${formattedOrderId}` }
-          ]
-        }
-      ]
-    }
-  })
-});
 
-const result = await whatsappResponse.json();
-console.log("📦 WhatsApp API response:", result);
-
-    alert(`Order placed successfully with ID ${formattedOrderId}`);
-    navigate("/");
-    
+    // ✅ Show Packing first, then Success
+    setOrderSuccess(true);
+    setTimeout(() => {
+      setShowPacking(false);  // ✅ Hide packing after showing success
+      navigate("/");          // ✅ Navigate after delay
+    }, 3000);
   } catch (error) {
     console.error("Order failed", error);
     alert("Failed to place order. Please try again.");
+    setShowPacking(false); // Hide packing if error
+  } finally {
+    setLoading(false);
   }
 };
+
 
 
   if (!productData) {
@@ -145,10 +123,31 @@ console.log("📦 WhatsApp API response:", result);
   const totalDiscount = totalOriginalPrice - totalFinalPrice;
   const totalAmount = totalFinalPrice; 
 
+  if (showPacking && !orderSuccess) {
+  return (
+    <div className="packing-container">
+      <img src="/packing.gif" alt="Packing your order..." className="packing-animation" />
+      <h3>Packing your order...</h3>
+    </div>
+  );
+}
+
+// ✅ Show success confirmation message
+if (orderSuccess) {
+  return (
+    <div className="success-container">
+      <img src="/success.gif" alt="Order Confirmed" className="success-animation" />
+      <h2>🎉 Order Confirmed!</h2>
+      <p>Your order has been successfully placed. We’ll notify you once it's shipped.</p>
+    </div>
+  );
+}
   return (
     <div className="confirm-container">
+      
       {/* Form Fields */}
       <div className="order-form">
+        
         <TextField label="Name" variant="outlined" fullWidth margin="normal" size='small' value={name} onChange={(e) => setName(e.target.value)} />
         <TextField label="Phone Number" variant="outlined" fullWidth margin="normal" value={phone} size='small'
                     inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}

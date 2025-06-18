@@ -120,6 +120,8 @@ const ProductDetails = () => {
   )}
 </div>
 
+
+
       {/* Right - Product Details */}
       <div className="product-info-container">
       <h1 className="product-title">

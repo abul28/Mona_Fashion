@@ -192,6 +192,119 @@
   .product-details-container .place-order-btn:hover {
     background: black;
   }
+
+  .quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.quantity-selector button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-selector span {
+  font-size: 16px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.product-image-carousel {
+  overflow-x: auto;
+  width: 30%;
+  margin-top: 35px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding: 20px 0;
+}
+
+.product-image-carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+  .carousel-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .carousel-image {
+    flex: 0 0 70%;       /* ✅ Increased from 40% to 70% */
+    max-width: 100%;
+    height: 500px;        /* You can increase height as well */
+    object-fit: cover;
+    scroll-snap-align: center;
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .carousel-image:hover {
+    transform: scale(1.05);
+  }
+
+
+.terms-container {
+  margin: 20px 0 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.terms-label {
+  margin-left: 5px;
+}
+
+.terms-link {
+  color: #553c8b;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999; /* High value to appear above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 400px;
+  z-index: 10000;
+}
+
+
+.close-btn {
+  margin-top: 15px;
+  padding: 8px 20px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-details-container .product-image{
+  width: 100%;
+}
 }
   
   

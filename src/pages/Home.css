@@ -218,6 +218,19 @@
     margin-top: 5px;
     display: block;
   }
+
+  .tag-badge {
+    position: absolute;
+    top: 4px;              
+    left: 4px;             
+    color: white;
+    font-weight: 600;      
+    padding: 2px 6px;      
+    font-size: 11px;       
+    border-radius: 3px;    
+    z-index: 1;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15); 
+  }
   
   /* Responsive Styles */
  @media (max-width: 768px) {
@@ -365,6 +378,8 @@
   .category-bar{
     display: none;
   }
+
+  
 }
 
 @media (max-width: 576px) {
