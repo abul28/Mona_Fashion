@@ -38,67 +38,85 @@ const ConfirmOrder = () => {
   }, [product]);
 
   const handleConfirmOrder = async () => {
-    if (!name || !phone || !buildingNo || !streetName || !city || !stateName || !pincode) {
-      alert("Please fill all fields");
-      return;
-    }
-  
-    try {
-      // Start Firestore transaction
-      const orderId = await runTransaction(firestore, async (transaction) => {
-        const counterRef = doc(firestore, "counters", "orderCounter");
-        const counterSnap = await transaction.get(counterRef);
-  
-        if (!counterSnap.exists()) {
-          throw "Counter document does not exist!";
+  if (!name || !phone || !buildingNo || !streetName || !city || !stateName || !pincode) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  try {
+    // Firestore transaction for order ID
+    const orderId = await runTransaction(firestore, async (transaction) => {
+      const counterRef = doc(firestore, "counters", "orderCounter");
+      const counterSnap = await transaction.get(counterRef);
+
+      if (!counterSnap.exists()) {
+        throw "Counter document does not exist!";
+      }
+
+      const newCount = (counterSnap.data().count || 0) + 1;
+      transaction.update(counterRef, { count: newCount });
+      return newCount;
+    });
+
+    const formattedOrderId = `#${String(orderId).padStart(4, "0")}`;
+
+    // Save order data
+    const orderData = {
+      orderId: formattedOrderId,
+      name,
+      phone,
+      address: `${buildingNo}, ${streetName}, ${city}, ${stateName} - ${pincode}`,
+      productId: product.id,
+      quantity,
+      size: selectedSize,
+      productName: productData.name,
+      price: productData.price,
+      totalPrice: productData.price * quantity,
+      image: productData.imageUrls?.[0] || productData.imageUrl,
+      status: "Order",
+      timestamp: serverTimestamp(),
+    };
+
+    await addDoc(collection(firestore, "orders"), orderData);
+    const whatsappResponse = await fetch("https://graph.facebook.com/v19.0/YOUR_PHONE_NUMBER_ID/messages", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer YOUR_ACCESS_TOKEN", // Replace with your real token
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    messaging_product: "whatsapp",
+    to: `91${phone}`, // Customer's WhatsApp number
+    type: "template",
+    template: {
+      name: "order_status", // Your approved WhatsApp template name
+      language: { code: "en_US" },
+      components: [
+        {
+          type: "body",
+          parameters: [
+            { type: "text", text: formattedOrderId },
+            { type: "text", text: `₹${orderData.totalPrice}` },
+            { type: "text", text: `https://monafashion.vercel.app/trackingOrders/${formattedOrderId}` }
+          ]
         }
-  
-        const currentCount = counterSnap.data().count || 0;
-        const newCount = currentCount + 1;
-  
-        transaction.update(counterRef, { count: newCount });
-  
-        return newCount;
-      });
-  
-      // Format orderId like "#0001"
-      const formattedOrderId = `#${String(orderId).padStart(4, "0")}`;
-  
-      // Save order data
-      const orderData = {
-        orderId: formattedOrderId,
-        name,
-        phone,
-        address: `${buildingNo}, ${streetName}, ${city}, ${stateName} - ${pincode}`,
-        buildingNo,
-        streetName,
-        city,
-        state: stateName,
-        pincode,
-        productId: product.id,
-        quantity,
-        size: selectedSize,
-        productName: productData.name,
-        price: productData.price,
-        totalPrice: productData.price * quantity,
-        image: productData.imageUrls?.[0] || productData.imageUrl,
-        status: "Order", // ✅ Add this line
-        originalPrice: productData.originalPrice,
-        discount: productData.discount,
-        color: productData.color || 'Blue',
-        timestamp: serverTimestamp()
-      };
-      
-      
-  
-      await addDoc(collection(firestore, "orders"), orderData);
-      alert(`Order placed successfully with ID ${formattedOrderId}`);
-      navigate("/"); // or redirect to thank you page
-    } catch (error) {
-      console.error("Order failed", error);
-      alert("Failed to place order. Please try again.");
+      ]
     }
-  };
+  })
+});
+
+const result = await whatsappResponse.json();
+console.log("📦 WhatsApp API response:", result);
+
+    alert(`Order placed successfully with ID ${formattedOrderId}`);
+    navigate("/");
+    
+  } catch (error) {
+    console.error("Order failed", error);
+    alert("Failed to place order. Please try again.");
+  }
+};
+
 
   if (!productData) {
     return (
@@ -107,6 +125,20 @@ const ConfirmOrder = () => {
       </div>
     );
   }
+
+  const generateTrackingLink = (orderId) => {
+    return `https://monafashion.vercel.app/trackingOrders/${orderId}`;
+  };
+  
+  const generateWhatsAppLink = (phone, orderId, productName, totalPrice) => {
+    const trackingLink = generateTrackingLink(orderId);
+  
+    const message = encodeURIComponent(
+      `🌟 Great news! We have received your order *${orderId}* amounting *₹${totalPrice}*. \n🚚 Your order is on its way! \n\n📍 Track your shipment here: \n👉 ${trackingLink}`
+    );
+  
+    return `https://wa.me/${phone}?text=${message}`;
+  };
 
   const totalOriginalPrice = productData.originalPrice * quantity;
   const totalFinalPrice = productData.price * quantity;
