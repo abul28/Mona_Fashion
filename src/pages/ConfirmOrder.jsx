@@ -80,11 +80,16 @@ const [orderSuccess, setOrderSuccess] = useState(false);
     await addDoc(collection(firestore, "orders"), orderData);
 
     // ✅ Show Packing first, then Success
-    setOrderSuccess(true);
-    setTimeout(() => {
-      setShowPacking(false);  // ✅ Hide packing after showing success
-      navigate("/");          // ✅ Navigate after delay
-    }, 3000);
+    setOrderSuccess(true); // This will show the success UI
+
+setTimeout(() => {
+  setShowPacking(false); // Hide packing and show success
+}, 5000); // 3-second delay for packing animation
+
+setTimeout(() => {
+  navigate("/"); // Navigate to homepage after 6 seconds total
+}, 1000); // 3s for packing + 3s for success screen
+
   } catch (error) {
     console.error("Order failed", error);
     alert("Failed to place order. Please try again.");
