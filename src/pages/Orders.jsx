@@ -16,13 +16,13 @@ const Orders = () => {
 
   const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
-
+  
     try {
       if (id) {
         const orderRef = doc(firestore, 'orders', id);
-        await updateDoc(orderRef, { status: newStatus });
+        await updateDoc(orderRef, { status: newStatus }); // ✅ Updates tracking status too
       }
-      navigate("/manageOrders"); // Redirect back after updating status
+      navigate("/manageOrders");
     } catch (error) {
       console.error('Error updating status:', error);
     }

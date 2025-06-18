@@ -1,0 +1,125 @@
+/* General container */
+.tracking-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Product Summary Section */
+  .summary-content {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    align-items: flex-start;
+  }
+  
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .details h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .discount-info {
+    margin-top: 8px;
+    font-size: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .discount {
+    color: green;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  .final-price {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  /* Timeline Styles */
+  .tracking-timeline {
+    margin: 30px 0;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .tracking-step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+  
+  .tracking-step .icon {
+    margin-right: 12px;
+    color: #bbb;
+    font-size: 24px;
+  }
+  
+  .tracking-step.completed .icon {
+    color: #28a745; /* Green for completed */
+  }
+  
+  .step-details {
+    font-size: 15px;
+  }
+  
+  .label {
+    font-weight: 500;
+  }
+  
+  .date {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .step-line {
+    position: absolute;
+    top: 30px;
+    left: 11px;
+    height: 40px;
+    width: 2px;
+    background-color: #28a745;
+  }
+  
+  /* Last step does not need line */
+  .tracking-step:last-child .step-line {
+    display: none;
+  }
+  
+  /* Shipping Details */
+  .shipping-details {
+    background-color: #f9f9f9;
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    margin-top: 30px;
+  }
+  
+  .shipping-details h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .shipping-details p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.5;
+  }
+  

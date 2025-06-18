@@ -8,6 +8,7 @@ import Tabview from "./pages/Tabview";
 import Login from "./pages/Login";
 import ConfirmOrder from "./pages/ConfirmOrder";
 import Orders from './pages/Orders';
+import TrackingOrders from "./pages/TrackingOrders"
 import ManageOrders from './pages/ManageOrders';
 import Category from "./pages/Category";
 import { onAuthStateChanged } from "firebase/auth";
@@ -99,6 +100,7 @@ const MainContent = ({ searchQuery, setSearchQuery, isAuthenticated, setIsAuthen
         <Route path="/confirm-order" element={<ConfirmOrder />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/manageOrders" element={<ManageOrders />} />
+        <Route path="/trackingOrders/:orderId" element={<TrackingOrders />} />
         <Route path="/categories" element={<Category />} />
         <Route 
           path="/products" 
