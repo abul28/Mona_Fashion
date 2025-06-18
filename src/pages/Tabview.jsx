@@ -17,21 +17,21 @@ const ManageProductTabs = () => {
 
   return (
     <Box sx={{ width: '100%', typography: 'body1', padding: 1 }}>
-      <Tabs value={selectedTab} onChange={handleChange} aria-label="Product Tabs" textColor="#994ECC" variant="scrollable"              // Enables horizontal scroll
+      <Tabs value={selectedTab} onChange={handleChange} aria-label="Product Tabs" textColor="black" variant="scrollable"              // Enables horizontal scroll
   scrollButtons="auto"// or "primary"
   indicatorColor="secondary" // changes the indicator line
   sx={{
     overflowX: 'auto', 
     '& .MuiTab-root': {
-      color: '#black',
+      color: 'black',
       whiteSpace: 'nowrap', // default text color
     },
     '& .Mui-selected': {
-      color: '#black', // selected tab label color
+      color: 'black', // selected tab label color
       fontWeight: 'bold',
     },
     '& .MuiTabs-indicator': {
-      backgroundColor: '#black', // indicator line color
+      backgroundColor: 'black', // indicator line color
     },
   }}>
         <Tab label="Add Product"/>
