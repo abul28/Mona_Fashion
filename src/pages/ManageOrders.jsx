@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query  } from 'firebase/firestore';
 import { firestore } from '../firebase/FirebaseService';
 import { useNavigate } from "react-router-dom";
 import './ManageOrders.css';
@@ -11,17 +11,21 @@ const ManageOrders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, 'orders'));
-        const orderList = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setOrders(orderList);
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      }
-    };
+  try {
+    const ordersRef = collection(firestore, 'orders');
+    const q = query(ordersRef, orderBy("timestamp", "desc")); // newest first
+    const querySnapshot = await getDocs(q);
+
+    const orderList = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    setOrders(orderList);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+  }
+};
 
     fetchOrders();
   }, []);
